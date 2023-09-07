@@ -5,15 +5,17 @@ type Props = {
   setList: (val: any[]) => void;
 };
 
-const BookTitleList: React.FC<Props> = ({ list, setList }) => {
+const BookTitleList: React.FC<Props> = ( props ) => {
   const removeBookFromList = (bookTitle: string) => {
-    setList(list.filter((element) => element != bookTitle));
+    props.setList(props.list.filter((element) => element != bookTitle));
   };
 
+
+  // Add in quantity if user submits multiple of same isbn
   return (
     <>
-      {list &&
-        list.map((element, index) => {
+      {props.list &&
+        props.list.map((element, index) => {
           return (
             <li className="bookTitleItems" key={index}>
               {element}

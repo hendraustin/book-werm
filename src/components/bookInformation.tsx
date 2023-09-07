@@ -8,17 +8,17 @@ type Props = {
   setList: (val: any[]) => void;
 };
 
-const BookInformation: React.FC<Props> = ({ isbn, list, setIsbn, setList }) => {
+const BookInformation: React.FC<Props> = ( props ) => {
   const [inputSubmitted, setInputSubmitted] = useState(false);
 
   const getISBNInformation = async () => {
-    let isbnNoHypens = isbn.replace("-", "");
+    let isbnNoHypens = props.isbn.replace("-", "");
     await axios
       .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnNoHypens}`)
       .then((response) => {
-        setIsbn(isbnNoHypens);
-        !list.includes(response.data.items[0].volumeInfo.title) &&
-          setList([...list, response.data.items[0].volumeInfo.title]);
+        props.setIsbn(isbnNoHypens);
+        !props.list.includes(response.data.items[0].volumeInfo.title) &&
+          props.setList([...props.list, response.data.items[0].volumeInfo.title]);
       })
       .catch((error) => {
         console.log(error);
@@ -33,7 +33,7 @@ const BookInformation: React.FC<Props> = ({ isbn, list, setIsbn, setList }) => {
   }, [inputSubmitted]);
 
   const handleChange = (isbn: string) => {
-    setIsbn(isbn);
+    props.setIsbn(isbn);
   };
 
   return (
