@@ -31,14 +31,9 @@ function BookInformation({ isbn, list, setIsbn, setList }: Props) {
       });
   };
 
-  // Clearing input field after submitting
   useEffect(() => {
     clearInputField();
   }, [inputSubmitted]);
-
-  const handleChange = (isbn: string) => {
-    setIsbn(isbn);
-  };
 
   return (
     <form
@@ -48,20 +43,20 @@ function BookInformation({ isbn, list, setIsbn, setList }: Props) {
         setInputSubmitted(inputSubmitted ? false : true);
       }}
     >
-      <label>
-        ISBN:
+      <div className="input-container">
+        <label>ISBN:</label>
         <input
           placeholder="Enter ISBN here!"
           id="inputForm"
           type="text"
           onChange={(e) => {
-            handleChange(e.target.value);
+            setIsbn(e.target.value);
           }}
         />
-      </label>
-      <input type="submit" value="Submit" />
+        <input className="bn-submit" type="submit" value="Submit" />
+      </div>
     </form>
   );
-};
+}
 
 export default BookInformation;
