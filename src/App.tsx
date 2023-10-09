@@ -16,12 +16,7 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <div>
-          <BookInformation
-            isbn={isbn}
-            list={list}
-            setIsbn={setIsbn}
-            setList={setList}
-          />
+          <BookInformation isbn={isbn} list={list} setIsbn={setIsbn} setList={setList} />
           <BookTitleList list={list} setList={setList} />
         </div>
       </header>
