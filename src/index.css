@@ -12,9 +12,27 @@ code {
     monospace;
 }
 
+.App {
+  position: relative;
+}
+
 .bookTitleItems {
   text-align: left;
   list-style-type: none;
+}
+
+.bn-book-count {
+  padding: 0 5px 0 5px;
+  color: gray;
+  transition: 0.3s;
+}
+
+.bn-book-count:hover {
+  color: white;
+}
+
+.bn-submit {
+  padding: 2px;
 }
 
 .fa-trash {
@@ -24,4 +42,10 @@ code {
 
 .fa-trash:hover {
   color: red;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 }
