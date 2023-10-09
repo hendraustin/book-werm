@@ -11,6 +11,11 @@ type Props = {
 function BookInformation({ isbn, list, setIsbn, setList }: Props) {
   const [inputSubmitted, setInputSubmitted] = useState(false);
 
+  const clearInputField = () => {
+    let inputForm = document.getElementById("inputForm") as HTMLInputElement;
+    inputForm.value = "";
+  };
+
   const getISBNInformation = async () => {
     let isbnNoHypens = isbn.replace("-", "");
     await axios
@@ -28,8 +33,7 @@ function BookInformation({ isbn, list, setIsbn, setList }: Props) {
 
   // Clearing input field after submitting
   useEffect(() => {
-    let inputForm = document.getElementById("inputForm") as HTMLInputElement;
-    inputForm.value = "";
+    clearInputField();
   }, [inputSubmitted]);
 
   const handleChange = (isbn: string) => {
