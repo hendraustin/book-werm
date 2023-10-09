@@ -1,11 +1,12 @@
 import { useState } from "react";
 import logo from "./logo.svg";
 import BookInformation from "./components/bookInformation";
+import BookTitleList from "./components/bookTitleList";
 import "./App.css";
 
 function App() {
-  const [isbn, setIsbn] = useState("Haven't searched");
-  const [title, setTitle] = useState("Nothing here");
+  const [isbn, setIsbn] = useState("");
+  const [list, setList] = useState<string[]>([]);
 
   return (
     <div className="App">
@@ -15,10 +16,13 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <div>
-          <BookInformation isbn={isbn} setIsbn={setIsbn} setTitle={setTitle} />
-          <div>
-            <p>Title: {title}</p>
-          </div>
+          <BookInformation
+            isbn={isbn}
+            list={list}
+            setIsbn={setIsbn}
+            setList={setList}
+          />
+          <BookTitleList list={list} setList={setList} />
         </div>
       </header>
     </div>
