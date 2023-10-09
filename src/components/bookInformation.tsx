@@ -8,8 +8,13 @@ type Props = {
   setList: (val: any[]) => void;
 };
 
-const BookInformation: React.FC<Props> = ( props ) => {
+const BookInformation: React.FC<Props> = (props) => {
   const [inputSubmitted, setInputSubmitted] = useState(false);
+
+  const clearInputField = () => {
+    let inputForm = document.getElementById("inputForm") as HTMLInputElement;
+    inputForm.value = "";
+  };
 
   const getISBNInformation = async () => {
     let isbnNoHypens = props.isbn.replace("-", "");
@@ -18,7 +23,10 @@ const BookInformation: React.FC<Props> = ( props ) => {
       .then((response) => {
         props.setIsbn(isbnNoHypens);
         !props.list.includes(response.data.items[0].volumeInfo.title) &&
-          props.setList([...props.list, response.data.items[0].volumeInfo.title]);
+          props.setList([
+            ...props.list,
+            response.data.items[0].volumeInfo.title,
+          ]);
       })
       .catch((error) => {
         console.log(error);
@@ -28,8 +36,7 @@ const BookInformation: React.FC<Props> = ( props ) => {
 
   // Clearing input field after submitting
   useEffect(() => {
-    let inputForm = document.getElementById("inputForm") as HTMLInputElement;
-    inputForm.value = "";
+    clearInputField();
   }, [inputSubmitted]);
 
   const handleChange = (isbn: string) => {
