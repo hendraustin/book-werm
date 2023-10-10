@@ -16,6 +16,21 @@ code {
   position: relative;
 }
 
+.app-column {
+  background-color: #5CA1BD;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookTitleList {
+  display: flex;
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
+}
+
 .bookTitleItems {
   text-align: left;
   list-style-type: none;
@@ -23,16 +38,22 @@ code {
 
 .bn-book-count {
   padding: 0 5px 0 5px;
-  color: gray;
+  color: black;
   transition: 0.3s;
 }
 
 .bn-book-count:hover {
-  color: white;
+  color: grey;
 }
 
 .bn-submit {
   padding: 2px;
+}
+
+.book-werm-logo {
+  height: 150px;
+  width: 150px;
+  margin-bottom: 20px;
 }
 
 .fa-trash {
@@ -48,4 +69,6 @@ code {
   display: flex;
   justify-content: center;
   gap: 5px;
+  margin-bottom: 5px;
+  font-size: calc(10px + 2vmin);
 }
