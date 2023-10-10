@@ -27,7 +27,7 @@ function BookInformation({ isbn, list, setIsbn, setList }: Props) {
       })
       .catch((error) => {
         console.log(error);
-        //TOOD: Do real error handling here
+        alert("ISBN not found!");
       });
   };
 
