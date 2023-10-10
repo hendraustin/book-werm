@@ -9,7 +9,7 @@ type Props = {
 };
 
 function BookTitleItem({ bookTitle, list, setList }: Props) {
-  const [bookCount, setBookCount] = useState(0);
+  const [bookCount, setBookCount] = useState(1);
 
   const removeBookFromList = (bookTitle: string) => {
     setList(list.filter((element) => element !== bookTitle));
@@ -25,7 +25,7 @@ function BookTitleItem({ bookTitle, list, setList }: Props) {
       <FontAwesomeIcon
         className="bn-book-count"
         icon={faMinus}
-        onClick={() => setBookCount(Math.max(bookCount - 1, 0))}
+        onClick={() => setBookCount(Math.max(bookCount - 1, 1))}
       />
       {bookCount}
       <FontAwesomeIcon
