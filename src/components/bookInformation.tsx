@@ -1,14 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { Metadata } from "../App";
+
 type Props = {
   isbn: string;
-  list: any[];
+  metadataArray: Metadata[];
   setIsbn: (val: string) => void;
-  setList: (val: any[]) => void;
+  setMetadataArray: (val: Metadata[]) => void;
 };
 
-function BookInformation({ isbn, list, setIsbn, setList }: Props) {
+function BookInformation({ isbn, setIsbn, metadataArray, setMetadataArray }: Props) {
   const [inputSubmitted, setInputSubmitted] = useState(false);
 
   const clearInputField = () => {
@@ -22,8 +24,13 @@ function BookInformation({ isbn, list, setIsbn, setList }: Props) {
       .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnNoHypens}`)
       .then((response) => {
         setIsbn(isbnNoHypens);
-        !list.includes(response.data.items[0].volumeInfo.title) &&
-          setList([...list, response.data.items[0].volumeInfo.title]);
+        let currMetadata = {} as Metadata;
+        currMetadata.author = response.data.items[0].volumeInfo.authors[0];
+        currMetadata.title = response.data.items[0].volumeInfo.title;
+        currMetadata.quantity = String(1);
+
+        !metadataArray.some((element) => element.title === currMetadata.title) &&
+          setMetadataArray([...metadataArray, currMetadata]);
       })
       .catch((error) => {
         console.log(error);
