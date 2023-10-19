@@ -8,7 +8,7 @@ type Props = {
   setList: (val: any[]) => void;
 };
 
-const BookInformation: React.FC<Props> = (props) => {
+function BookInformation({ isbn, list, setIsbn, setList }: Props) {
   const [inputSubmitted, setInputSubmitted] = useState(false);
 
   const clearInputField = () => {
@@ -17,31 +17,23 @@ const BookInformation: React.FC<Props> = (props) => {
   };
 
   const getISBNInformation = async () => {
-    let isbnNoHypens = props.isbn.replace("-", "");
+    let isbnNoHypens = isbn.replace("-", "");
     await axios
       .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnNoHypens}`)
       .then((response) => {
-        props.setIsbn(isbnNoHypens);
-        !props.list.includes(response.data.items[0].volumeInfo.title) &&
-          props.setList([
-            ...props.list,
-            response.data.items[0].volumeInfo.title,
-          ]);
+        setIsbn(isbnNoHypens);
+        !list.includes(response.data.items[0].volumeInfo.title) &&
+          setList([...list, response.data.items[0].volumeInfo.title]);
       })
       .catch((error) => {
         console.log(error);
-        //TOOD: Do real error handling here
+        alert("ISBN not found!");
       });
   };
 
-  // Clearing input field after submitting
   useEffect(() => {
     clearInputField();
   }, [inputSubmitted]);
-
-  const handleChange = (isbn: string) => {
-    props.setIsbn(isbn);
-  };
 
   return (
     <form
@@ -51,20 +43,20 @@ const BookInformation: React.FC<Props> = (props) => {
         setInputSubmitted(inputSubmitted ? false : true);
       }}
     >
-      <label>
-        ISBN:
+      <div className="input-container">
+        <label>ISBN:</label>
         <input
           placeholder="Enter ISBN here!"
           id="inputForm"
           type="text"
           onChange={(e) => {
-            handleChange(e.target.value);
+            setIsbn(e.target.value);
           }}
         />
-      </label>
-      <input type="submit" value="Submit" />
+        <input className="bn-submit" type="submit" value="Submit" />
+      </div>
     </form>
   );
-};
+}
 
 export default BookInformation;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo from "./logo.svg";
+
 import BookInformation from "./components/bookInformation";
 import BookTitleList from "./components/bookTitleList";
 import "./App.css";
@@ -10,21 +11,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <div className="app-column">
+        <h1>Book Werm</h1>
+        <img src={require("./book-werm.png")} className="book-werm-logo" />
         <div>
-          <BookInformation
-            isbn={isbn}
-            list={list}
-            setIsbn={setIsbn}
-            setList={setList}
-          />
+          <BookInformation isbn={isbn} list={list} setIsbn={setIsbn} setList={setList} />
           <BookTitleList list={list} setList={setList} />
         </div>
-      </header>
+
+      </div>
     </div>
   );
 }
