@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Docker
 
-This application can be run with DOcker. Assuming you have the `docker` command-line tool installed, simply run the following to install all dependencies and run the application:
+This application can be run with Docker. Assuming you have the `docker` command-line tool installed, simply run the following to install all dependencies and run the application:
 
 `docker build -t [my-image-name] . && docker run -dp 127.0.0.1:3000:3000 [my-image-name]`
 
