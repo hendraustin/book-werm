@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <div className="app-column">
         <h1>Book Werm</h1>
-        <img src={require("./book-werm.png")} className="book-werm-logo" />
+        <img src={require("./book-werm.png")} className="book-werm-logo" alt="Book Werm logo" />
         <div>
           <BookInformation
             isbn={isbn}
