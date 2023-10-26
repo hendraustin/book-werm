@@ -19,21 +19,21 @@ const bookSlice = createSlice({
 
         removeMetadata(state, actions: PayloadAction<String>) {
             const indexToRemove = state.findIndex((book) => book.title === actions.payload);
-            
+
             if (indexToRemove !== -1) {
                 state.splice(indexToRemove, 1);
             }
         },
 
-        incrementQuantity(state, actions: PayloadAction<BookMetadata>) {
-            const bookToIncrement = state.find(book => book.title === actions.payload.title);
+        incrementQuantity(state, actions: PayloadAction<String>) {
+            const bookToIncrement = state.find(book => book.title === actions.payload);
             
             if (bookToIncrement) {
                 bookToIncrement.quantity += 1;
             }
         },
-        decrementQuantity(state, actions: PayloadAction<BookMetadata>) {
-            const bookToIncrement = state.find(book => book.title === actions.payload.title);
+        decrementQuantity(state, actions: PayloadAction<String>) {
+            const bookToIncrement = state.find(book => book.title === actions.payload);
             
             if (bookToIncrement && bookToIncrement.quantity > 0) {
                 bookToIncrement.quantity -= 1;
