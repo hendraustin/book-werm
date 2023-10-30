@@ -1,55 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
-import { Metadata } from "../App";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { removeMetadata, incrementQuantity, decrementQuantity } from "../features/book/bookSlice";
 
 type Props = {
   bookTitle: string;
-  metadataArray: Metadata[];
-  setMetadataArray: (val: Metadata[]) => void;
 };
 
-function BookTitleItem({ bookTitle, metadataArray, setMetadataArray }: Props) {
-  const [bookCount, setBookCount] = useState(1);
-
-  const removeBookFromList = (bookTitle: string) => {
-    setMetadataArray(metadataArray.filter((element) => element.title !== bookTitle));
-  };
-
-  const updateQuantity = (bookTitle: string, newQuantity: number) => {
-    let updatedArray = metadataArray.map((element) => {
-      if (element.title === bookTitle) {
-        return { ...element, quantity: newQuantity.toString() };
-      }
-      return element;
-    });
-    setMetadataArray(updatedArray);
-  };
+function BookTitleItem({ bookTitle }: Props) {
+  const dispatch = useAppDispatch();
+  const booksList = useAppSelector((state) => state.book);
+  const book = booksList.find((book) => book.title === bookTitle);
 
   return (
     <li>
       <FontAwesomeIcon
         icon={faTrash}
         className="fa-trash"
-        onClick={() => removeBookFromList(bookTitle)}
+        onClick={() => dispatch(removeMetadata(bookTitle))}
       />
       {bookTitle}
       <FontAwesomeIcon
         className="bn-book-count"
         icon={faMinus}
         onClick={() => {
-          updateQuantity(bookTitle, Math.max(bookCount - 1, 1));
-          setBookCount(Math.max(bookCount - 1, 1));
+          dispatch(decrementQuantity(bookTitle));
         }}
       />
-      {bookCount}
+      {book?.quantity}
       <FontAwesomeIcon
         className="bn-book-count"
         icon={faPlus}
         onClick={() => {
-          updateQuantity(bookTitle, Math.max(bookCount + 1, 1));
-          setBookCount(bookCount + 1);
+          dispatch(incrementQuantity(bookTitle));
         }}
       />
     </li>

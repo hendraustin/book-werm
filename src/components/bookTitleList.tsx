@@ -1,22 +1,24 @@
 import React from "react";
 import CsvDownload from "react-csv-downloader";
 
+import { useAppSelector } from "../app/hooks";
 import BookTitleItem from "./bookTitleItem";
-import { Metadata } from "../App";
 
-type Props = {
-  metadataArray: Metadata[];
-  setMetadataArray: (val: Metadata[]) => void;
+type Metadata = {
+  author: string;
+  title: string;
+  quantity: string;
 };
 
-const BookTitleList: React.FC<Props> = (props) => {
+function BookTitleList() {
   let datas: Metadata[] = [];
-  let isEmpty = props.metadataArray.length === 0;
+  let booksList = useAppSelector((state) => state.book);
+  let isEmpty = booksList.length === 0;
 
   return (
     <div className="bookTitleList">
-      {props.metadataArray &&
-        props.metadataArray.map((element, index) => {
+      {booksList &&
+        booksList.map((element, index) => {
           datas.push({
             author: element.author,
             title: element.title,
@@ -24,11 +26,7 @@ const BookTitleList: React.FC<Props> = (props) => {
           });
           return (
             <div className="bookTitleItems" key={index}>
-              <BookTitleItem
-                bookTitle={element.title}
-                metadataArray={props.metadataArray}
-                setMetadataArray={props.setMetadataArray}
-              />
+              <BookTitleItem bookTitle={element.title} />
             </div>
           );
         })}
@@ -37,6 +35,6 @@ const BookTitleList: React.FC<Props> = (props) => {
       </div>
     </div>
   );
-};
+}
 
 export default BookTitleList;

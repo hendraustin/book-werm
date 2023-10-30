@@ -1,17 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { Metadata } from "../App";
+import { useAppDispatch } from "../app/hooks";
+import { BookMetadata, addMetadata } from "../features/book/bookSlice";
 
-type Props = {
-  isbn: string;
-  metadataArray: Metadata[];
-  setIsbn: (val: string) => void;
-  setMetadataArray: (val: Metadata[]) => void;
-};
-
-function BookInformation({ isbn, setIsbn, metadataArray, setMetadataArray }: Props) {
+function BookInformation() {
+  const [isbn, setIsbn] = useState("");
   const [inputSubmitted, setInputSubmitted] = useState(false);
+  const dispatch = useAppDispatch();
 
   const clearInputField = () => {
     let inputForm = document.getElementById("inputForm") as HTMLInputElement;
@@ -24,13 +20,13 @@ function BookInformation({ isbn, setIsbn, metadataArray, setMetadataArray }: Pro
       .get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbnNoHypens}`)
       .then((response) => {
         setIsbn(isbnNoHypens);
-        let currMetadata = {} as Metadata;
-        currMetadata.author = response.data.items[0].volumeInfo.authors[0];
-        currMetadata.title = response.data.items[0].volumeInfo.title;
-        currMetadata.quantity = String(1);
 
-        !metadataArray.some((element) => element.title === currMetadata.title) &&
-          setMetadataArray([...metadataArray, currMetadata]);
+        let currMeta = {} as BookMetadata;
+        currMeta.author = response.data.items[0].volumeInfo.authors[0];
+        currMeta.title = response.data.items[0].volumeInfo.title;
+        currMeta.quantity = 1;
+
+        dispatch(addMetadata(currMeta));
       })
       .catch((error) => {
         console.log(error);
