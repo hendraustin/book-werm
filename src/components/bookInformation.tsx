@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { BookMetadata, addMetadata } from "../features/book/bookSlice";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch } from "../app/hooks";
 
 function BookInformation() {
   const [isbn, setIsbn] = useState("");
