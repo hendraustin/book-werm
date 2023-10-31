@@ -1,8 +1,7 @@
-PORT ?= # Recommended: 127.0.0.1:3000:3000
-DOCKER_USERNAME ?= # Your Docker username
+USERNAME ?= default-username
+PORT ?= 127.0.0.1:3000:3000
 APPLICATION ?= book-werm
-IMAGE ?= ${DOCKER_USERNAME}/${APPLICATION}
-
+IMAGE ?= ${USERNAME}/${APPLICATION}
 
 build:
 	docker build -t ${IMAGE} .
