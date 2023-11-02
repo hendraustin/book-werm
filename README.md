@@ -20,6 +20,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+## Docker
+
+This application can also be run with Docker. If you have the [docker CLI](https://www.docker.com/get-started/) installed, replace the `PORT` and `DOCKER_USERNAME` variables in the `Makefile` and run the following:
+
+`make build` - Builds the Docker image
+
+`make run` - Spins up the image in a local container
+
+Note: If you are on a Windows machine and don't feel like installing `make`, run the following to build and run the application:
+
+`docker build -t [my-image-name] . && docker run -dp 127.0.0.1:3000:3000 [my-image-name]`
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
