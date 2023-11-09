@@ -1,4 +1,4 @@
-import reducer, { addMetadata, BookMetadata } from './bookSlice'
+import reducer, { BookMetadata, addMetadata, removeMetadata } from './bookSlice'
 
 test('should handle metadata being added to an empty list', () => {
     const previousState: BookMetadata[] = []
@@ -16,5 +16,28 @@ test('should handle metadata being added to an existing list', () => {
     expect(reducer(previousState, addMetadata(metadata))).toEqual([
         {author: "Test Author A", title: "Test Title A", quantity: 1},
         {author: "Test Author B", title: "Test Title B", quantity: 2},
+    ])
+})
+
+test('should handle metadata being removed from an existing list', () => {
+    const previousState: BookMetadata[] = [
+        {author: "Test Author A", title: "Test Title A", quantity: 1},
+        {author: "Test Author B", title: "Test Title B", quantity: 2},
+    ]
+
+    expect(reducer(previousState, removeMetadata("Test Title A"))).toEqual([
+        {author: "Test Author B", title: "Test Title B", quantity: 2},
+    ])
+})
+
+test('should do nothing if title not in existing list', () => {
+    const previousState: BookMetadata[] = [
+        {author: "Test Author A", title: "Test Title A", quantity: 1},
+        {author: "Test Author B", title: "Test Title B", quantity: 2},
+    ]
+
+    expect(reducer(previousState, removeMetadata("Test Title"))).toEqual([
+        {author: "Test Author A", title: "Test Title A", quantity: 1},
+        {author: "Test Author B", title: "Test Title B", quantity: 2},    
     ])
 })
