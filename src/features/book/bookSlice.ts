@@ -35,7 +35,7 @@ const bookSlice = createSlice({
         decrementQuantity(state, actions: PayloadAction<String>) {
             const bookToIncrement = state.find(book => book.title === actions.payload);
             
-            if (bookToIncrement && bookToIncrement.quantity > 0) {
+            if (bookToIncrement && bookToIncrement.quantity > 1) {
                 bookToIncrement.quantity -= 1;
             }
         }

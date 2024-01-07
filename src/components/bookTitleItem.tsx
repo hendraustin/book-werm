@@ -19,20 +19,23 @@ function BookTitleItem({ bookTitle }: Props) {
       <FontAwesomeIcon
         icon={faTrash}
         className="fa-trash"
+        title="fa-trash"
         onClick={() => dispatch(removeMetadata(bookTitle))}
       />
       {bookTitle}
       <FontAwesomeIcon
-        className="bn-book-count"
         icon={faMinus}
+        className="bn-book-count"
+        title="incrementer"
         onClick={() => {
           dispatch(decrementQuantity(bookTitle));
         }}
       />
       {book?.quantity}
       <FontAwesomeIcon
-        className="bn-book-count"
         icon={faPlus}
+        className="bn-book-count"
+        title="decrementer"
         onClick={() => {
           dispatch(incrementQuantity(bookTitle));
         }}
