@@ -22,8 +22,8 @@ test("BookTitleItem component test", () => {
   );
 
   const trashIcon = getByTitle("fa-trash");
-  const minusIcon = getByTitle("incrementer");
-  const plusIcon = getByTitle("decrementer");
+  const minusIcon = getByTitle("decrementer");
+  const plusIcon = getByTitle("incrementer");
 
   fireEvent.click(trashIcon);
   fireEvent.click(minusIcon);

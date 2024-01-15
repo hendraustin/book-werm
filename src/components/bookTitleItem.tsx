@@ -26,7 +26,7 @@ function BookTitleItem({ bookTitle }: Props) {
       <FontAwesomeIcon
         icon={faMinus}
         className="bn-book-count"
-        title="incrementer"
+        title="decrementer"
         onClick={() => {
           dispatch(decrementQuantity(bookTitle));
         }}
@@ -35,7 +35,7 @@ function BookTitleItem({ bookTitle }: Props) {
       <FontAwesomeIcon
         icon={faPlus}
         className="bn-book-count"
-        title="decrementer"
+        title="incrementer"
         onClick={() => {
           dispatch(incrementQuantity(bookTitle));
         }}
