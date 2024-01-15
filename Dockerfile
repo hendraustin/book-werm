@@ -1,10 +1,10 @@
 # Development stage
 FROM node:18-alpine as development
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY tsconfig.json ./
-COPY ./src ./src
+COPY . .
 CMD [ "npm", "run", "start" ]
 
 # # Builder stage
