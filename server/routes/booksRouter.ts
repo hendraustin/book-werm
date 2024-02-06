@@ -26,7 +26,16 @@ booksRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
         res.status(500).send(error);
     })
 });
- 
+
+booksRouter.put('/', (req: Request, res: Response, next: NextFunction) => {
+    putBook(req.body).then(response => {
+        res.status(201).send(response)
+    })
+    .catch(error => {
+        res.status(500).send(error)
+    })
+})
+
 async function getBooks() {
     try {
         return await new Promise(function (resolve, reject) {
@@ -41,10 +50,35 @@ async function getBooks() {
                 }
             });
         });
-    } catch (error_1) {
-        console.error(error_1);
+    } catch (error) {
+        console.error(error);
         throw new Error("Internal server error");
     }
 };
+
+async function putBook(requestBody: any) {
+    const {isbn, author, title, quantity} = requestBody;
+    try {
+        await new Promise(function (resolve, reject) {
+            pool.query(
+                "INSERT INTO books (isbn, author, title, quantity) VALUES ($1, $2, $3, $4) RETURNING *",
+                [isbn, author, title, quantity], (error: Error, results: any) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    if (results && results.rows) {
+                        resolve(`Successfully added ${title}`);
+                    } else {
+                        reject(new Error("Error adding new title to database"));
+                    }
+                }
+            );
+        });
+    } catch (error) {
+        console.error(error);
+        throw new Error("Internal server error");
+    }
+}
+ 
 
 module.exports = booksRouter;
