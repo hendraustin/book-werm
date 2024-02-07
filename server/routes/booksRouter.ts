@@ -29,12 +29,23 @@ booksRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 booksRouter.put('/', (req: Request, res: Response, next: NextFunction) => {
     putBook(req.body).then(response => {
-        res.status(201).send(response)
+        res.status(201).send(response);
     })
     .catch(error => {
-        res.status(500).send(error)
+        res.status(400).send(error);
     })
-})
+});
+
+// TODO: Look into potentially refactoring isbn into query string params instead of request body
+booksRouter.delete('/', (req: Request, res: Response, next: NextFunction) => {
+    deleteBook(req.body).then(response => {
+        res.status(204).send(response);
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    })
+});
+
 
 async function getBooks() {
     try {
@@ -79,6 +90,28 @@ async function putBook(requestBody: any) {
         throw new Error("Internal server error");
     }
 }
- 
+
+async function deleteBook(requestBody: any) {
+    const isbn = requestBody.data.isbn;
+    try {
+        await new Promise(function (resolve, reject) {
+            pool.query(
+                "DELETE FROM books WHERE isbn = $1", [isbn], (error: Error, results: any) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    if (results && results.rows) {
+                        resolve(`Successfully removed ISBN: ${isbn}`);
+                    } else {
+                        reject(new Error("Error deleting ISBN from database"));
+                    }
+                }
+            )
+        });
+    } catch (error) {
+        console.error(error);
+        throw new Error("Internal server error");
+    }
+}
 
 module.exports = booksRouter;
