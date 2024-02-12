@@ -110,9 +110,9 @@ async function putBook(requestBody: any) {
                         reject(error);
                     }
                     if (results && results.rows) {
-                        resolve(`Successfully removed ISBN: ${quantity}`);
+                        resolve(`Successfully updated ISBN: ${isbn}`);
                     } else {
-                        reject(new Error("Error deleting ISBN from database"));
+                        reject(new Error(`Error updating ISBN ${isbn} in database`));
                     }
                 }
             )
