@@ -8,7 +8,7 @@ const pool = new Pool({
     port: process.env.DEV_DATABASE_PORT,
 });
 
-async function getBooks() {
+export async function getBooks() {
     try {
         return await new Promise(function (resolve, reject) {
             pool.query("SELECT * FROM books", (error: Error, results: any) => {
@@ -28,7 +28,7 @@ async function getBooks() {
     }
 };
 
-async function createBook(requestBody: any) {
+export async function createBook(requestBody: any) {
     const {isbn, author, title, quantity} = requestBody;
     try {
         await new Promise(function (resolve, reject) {
@@ -52,7 +52,7 @@ async function createBook(requestBody: any) {
     }
 }
 
-async function updateBook(isbn: string, requestBody: any) {
+export async function updateBook(isbn: string, requestBody: any) {
     const { quantity } = requestBody;
     try {
         await new Promise(function (resolve, reject) {
@@ -75,7 +75,7 @@ async function updateBook(isbn: string, requestBody: any) {
     }
 }
 
-async function deleteBook(requestBody: any) {
+export async function deleteBook(requestBody: any) {
     const isbn = requestBody.data.isbn;
     try {
         await new Promise(function (resolve, reject) {
