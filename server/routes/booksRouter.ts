@@ -27,8 +27,8 @@ booksRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
     })
 });
 
-booksRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
-    postBook(req.body).then(response => {
+booksRouter.put('/', (req: Request, res: Response, next: NextFunction) => {
+    createBook(req.body).then(response => {
         res.status(201).send(response);
     })
     .catch(error => {
@@ -36,8 +36,9 @@ booksRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
     })
 });
 
-booksRouter.put('/', (req: Request, res: Response, next: NextFunction) => {
-    putBook(req.body).then(response => {
+booksRouter.put('/:isbn', (req: Request, res: Response, next: NextFunction) => {
+    const isbn = req.params.isbn;
+    updateBook(isbn, req.body).then(response => {
         res.status(200).send(response);
     })
     .catch(error => {
@@ -76,7 +77,7 @@ async function getBooks() {
     }
 };
 
-async function postBook(requestBody: any) {
+async function createBook(requestBody: any) {
     const {isbn, author, title, quantity} = requestBody;
     try {
         await new Promise(function (resolve, reject) {
@@ -100,8 +101,8 @@ async function postBook(requestBody: any) {
     }
 }
 
-async function putBook(requestBody: any) {
-    const { isbn, quantity } = requestBody;
+async function updateBook(isbn: string, requestBody: any) {
+    const { quantity } = requestBody;
     try {
         await new Promise(function (resolve, reject) {
             pool.query(
