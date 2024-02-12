@@ -27,14 +27,23 @@ booksRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
     })
 });
 
-booksRouter.put('/', (req: Request, res: Response, next: NextFunction) => {
-    putBook(req.body).then(response => {
+booksRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
+    postBook(req.body).then(response => {
         res.status(201).send(response);
     })
     .catch(error => {
         res.status(400).send(error);
     })
 });
+
+booksRouter.put('/', (req: Request, res: Response, next: NextFunction) => {
+    putBook(req.body).then(response => {
+        res.status(200).send(response);
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    })
+})
 
 // TODO: Look into potentially refactoring isbn into query string params instead of request body
 booksRouter.delete('/', (req: Request, res: Response, next: NextFunction) => {
@@ -67,7 +76,7 @@ async function getBooks() {
     }
 };
 
-async function putBook(requestBody: any) {
+async function postBook(requestBody: any) {
     const {isbn, author, title, quantity} = requestBody;
     try {
         await new Promise(function (resolve, reject) {
@@ -84,6 +93,29 @@ async function putBook(requestBody: any) {
                     }
                 }
             );
+        });
+    } catch (error) {
+        console.error(error);
+        throw new Error("Internal server error");
+    }
+}
+
+async function putBook(requestBody: any) {
+    const { isbn, quantity } = requestBody;
+    try {
+        await new Promise(function (resolve, reject) {
+            pool.query(
+                "UPDATE books SET quantity = quantity + $1 WHERE isbn = $2", [quantity, isbn], (error: Error, results: any) => {
+                    if (error) {
+                        reject(error);
+                    }
+                    if (results && results.rows) {
+                        resolve(`Successfully removed ISBN: ${quantity}`);
+                    } else {
+                        reject(new Error("Error deleting ISBN from database"));
+                    }
+                }
+            )
         });
     } catch (error) {
         console.error(error);
