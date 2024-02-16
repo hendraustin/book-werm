@@ -38,9 +38,9 @@ booksRouter.put('/:isbn', (req: Request, res: Response, next: NextFunction) => {
     })
 })
 
-// TODO: Look into potentially refactoring isbn into query string params instead of request body
-booksRouter.delete('/', (req: Request, res: Response, next: NextFunction) => {
-    deleteBook(req.body).then((response: any) => {
+booksRouter.delete('/:isbn', (req: Request, res: Response, next: NextFunction) => {
+    const isbn = req.params.isbn;
+    deleteBook(isbn, req.body).then((response: any) => {
         res.status(204).send(response);
     })
     .catch((error: Error) => {

@@ -75,8 +75,7 @@ export async function updateBook(isbn: string, requestBody: any) {
     }
 }
 
-export async function deleteBook(requestBody: any) {
-    const isbn = requestBody.data.isbn;
+export async function deleteBook(isbn: string, requestBody: any) {
     try {
         await new Promise(function (resolve, reject) {
             pool.query(
