@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Node and Express server for interacting with PostgreSQL",
-  "main": "index.ts",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
