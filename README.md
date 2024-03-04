@@ -12,15 +12,6 @@ Within both `client` and `server` directories respectively, install dependencies
 
 PostgreSQL is the database of choice for this project, utilizing [pgAdmin4](https://www.pgadmin.org/download/) for its GUI
 
-NOTE: There is an assumption that locally, you'll be hitting a `books` table, with the following columns:
-
-```
-isbn: integer (Primary Key)
-author: text
-title: text
-quantity: integer
-```
-
 ## Running locally
 
 ### Client
@@ -39,3 +30,12 @@ Spin up the server with the following commands from the `server` directory:
 `npx ts-node app.ts`
 
 Runs the Express server on either `process.env.DEV_APP_PORT` or `4000` depending on your `.env` file
+
+NOTE: There is an assumption that locally, you'll be hitting a `books` table, with the following columns:
+
+```
+isbn: integer (Primary Key)
+author: text
+title: text
+quantity: integer
+```

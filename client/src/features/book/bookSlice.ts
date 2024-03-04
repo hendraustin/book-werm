@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type BookMetadata = {
+export interface BookMetadata {
+    isbn: number;
     author: string;
     title: string;
     quantity: number;
@@ -13,27 +14,27 @@ const bookSlice = createSlice({
     initialState,
     reducers: {
         addMetadata(state, actions: PayloadAction<BookMetadata>) {
-            !state.find((book) => book.title === actions.payload.title) && 
+            !state.find((book) => book.isbn === actions.payload.isbn) && 
                 state.push(actions.payload)
         },
 
-        removeMetadata(state, actions: PayloadAction<String>) {
-            const indexToRemove = state.findIndex((book) => book.title === actions.payload);
+        removeMetadata(state, actions: PayloadAction<number>) {
+            const indexToRemove = state.findIndex((book) => book.isbn === actions.payload);
 
             if (indexToRemove !== -1) {
                 state.splice(indexToRemove, 1);
             }
         },
 
-        incrementQuantity(state, actions: PayloadAction<String>) {
-            const bookToIncrement = state.find(book => book.title === actions.payload);
+        incrementQuantity(state, actions: PayloadAction<number>) {
+            const bookToIncrement = state.find(book => book.isbn === actions.payload);
             
             if (bookToIncrement) {
                 bookToIncrement.quantity += 1;
             }
         },
-        decrementQuantity(state, actions: PayloadAction<String>) {
-            const bookToIncrement = state.find(book => book.title === actions.payload);
+        decrementQuantity(state, actions: PayloadAction<number>) {
+            const bookToIncrement = state.find(book => book.isbn === actions.payload);
             
             if (bookToIncrement && bookToIncrement.quantity > 0) {
                 bookToIncrement.quantity -= 1;
