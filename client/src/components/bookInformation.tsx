@@ -22,6 +22,8 @@ function BookInformation() {
         setIsbn(isbnNoHypens);
 
         let currMeta = {} as BookMetadata;
+        // ISBN 10 and 13 are randomly placed in industryIdentifiers object, grab first available
+        currMeta.isbn = response.data.items[0].volumeInfo.industryIdentifiers[0].identifier;
         currMeta.author = response.data.items[0].volumeInfo.authors[0];
         currMeta.title = response.data.items[0].volumeInfo.title;
         currMeta.quantity = 1;

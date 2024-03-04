@@ -5,11 +5,12 @@ import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { removeMetadata, incrementQuantity, decrementQuantity } from "../features/book/bookSlice";
 
-type Props = {
+interface Metadata {
+  isbn: number;
   bookTitle: string;
-};
+}
 
-function BookTitleItem({ bookTitle }: Props) {
+function BookTitleItem({ isbn, bookTitle }: Metadata) {
   const dispatch = useAppDispatch();
   const booksList = useAppSelector((state) => state.book);
   const book = booksList.find((book) => book.title === bookTitle);
@@ -19,14 +20,14 @@ function BookTitleItem({ bookTitle }: Props) {
       <FontAwesomeIcon
         icon={faTrash}
         className="fa-trash"
-        onClick={() => dispatch(removeMetadata(bookTitle))}
+        onClick={() => dispatch(removeMetadata(isbn))}
       />
       {bookTitle}
       <FontAwesomeIcon
         className="bn-book-count"
         icon={faMinus}
         onClick={() => {
-          dispatch(decrementQuantity(bookTitle));
+          dispatch(decrementQuantity(isbn));
         }}
       />
       {book?.quantity}
@@ -34,7 +35,7 @@ function BookTitleItem({ bookTitle }: Props) {
         className="bn-book-count"
         icon={faPlus}
         onClick={() => {
-          dispatch(incrementQuantity(bookTitle));
+          dispatch(incrementQuantity(isbn));
         }}
       />
     </li>
