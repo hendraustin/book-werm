@@ -17,8 +17,8 @@ code {
 }
 
 .app-column {
-  background-color: #5CA1BD;
-  min-height: 100vh;
+  background-color: #eeefef;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,4 +73,41 @@ code {
   gap: 5px;
   margin-bottom: 5px;
   font-size: calc(10px + 2vmin);
+}
+
+/* Nav Bar */
+.topnav {
+  overflow: hidden;
+  background-color: #6294e9;
+}
+
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #4883e8;
+  transition: .25s;
+}
+
+/* Book Management Screen */
+.grid-container {
+  display: flex;
+  justify-content: center;
+}
+
+.grid-container table {
+  border-collapse: collapse;
+  width: 65%;
+}
+
+.grid-container td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
