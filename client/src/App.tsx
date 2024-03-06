@@ -1,18 +1,19 @@
-import BookInformation from "./components/bookInformation";
-import BookTitleList from "./components/bookTitleList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import "./App.css";
+import Home from "./components/home";
+import SearchBar from "./components/bookManagementPage/bookManagement";
 
 function App() {
   return (
     <div className="App">
-      <div className="app-column">
-        <h1>Book Werm</h1>
-        <img src={require("./book-werm.png")} className="book-werm-logo" alt="Book Werm logo" />
-        <div>
-          <BookInformation />
-          <BookTitleList />
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route index element={<Home />} />
+          <Route path="search" element={<SearchBar />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
