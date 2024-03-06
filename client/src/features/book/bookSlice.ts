@@ -14,8 +14,15 @@ const bookSlice = createSlice({
     initialState,
     reducers: {
         addMetadata(state, actions: PayloadAction<BookMetadata>) {
-            !state.find((book) => book.isbn === actions.payload.isbn) && 
+            // Increment quantity if user inputs identical ISBN
+            const bookToIncrement = state.find((book) => book.isbn === actions.payload.isbn);
+
+            if (bookToIncrement) {
+                bookToIncrement.quantity += 1;
+            }
+            else {
                 state.push(actions.payload)
+            }
         },
 
         removeMetadata(state, actions: PayloadAction<number>) {
@@ -28,16 +35,16 @@ const bookSlice = createSlice({
 
         incrementQuantity(state, actions: PayloadAction<number>) {
             const bookToIncrement = state.find(book => book.isbn === actions.payload);
-            
+
             if (bookToIncrement) {
                 bookToIncrement.quantity += 1;
             }
         },
         decrementQuantity(state, actions: PayloadAction<number>) {
-            const bookToIncrement = state.find(book => book.isbn === actions.payload);
-            
-            if (bookToIncrement && bookToIncrement.quantity > 0) {
-                bookToIncrement.quantity -= 1;
+            const bookToDecrement = state.find(book => book.isbn === actions.payload);
+
+            if (bookToDecrement && bookToDecrement.quantity > 0) {
+                bookToDecrement.quantity -= 1;
             }
         }
     }
